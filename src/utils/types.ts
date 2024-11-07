@@ -13,18 +13,16 @@ export interface StateData {
 }
 
 export interface ContractType {
-	transactionId: string;
-	type: string;
-	blockNumber: number;
 	addressTo: string;
-	txTimestamp: string;
+	blockNumber: number;
 	currentTimestamp: string;
 	ethereumTransactionHash: string | null;
 	hederaTransactionHash: string;
-	transactionStatus: string;
+	transactionId: string;
+	txTimestamp: string;
+	type: string;
 }
 
-export interface TransactionStatusResponse {
-	transactionPayload: ContractType;
-	status: string;
+export interface TransactionStatusResponse extends ContractType{
+	status: string,
 }
