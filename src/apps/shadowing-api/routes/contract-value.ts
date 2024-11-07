@@ -6,21 +6,17 @@ const contractValueRouter = (wss: WebSocketServer) => {
 	const router = Router();
 
 	router.post('/', (req: Request<TransactionStatusResponse>, res: Response) => {
-
 		const contractData = {
-			transactionId: req.body.transactionPayload.transactionId,
-			type: req.body.transactionPayload.type,
-			blockNumber: req.body.transactionPayload.blockNumber,
-			addressTo: req.body.transactionPayload.addressTo,
-			txTimestamp: req.body.transactionPayload.txTimestamp,
-			timestamp: req.body.transactionPayload.timestamp,
-			currentTimestamp: req.body.transactionPayload.currentTimestamp,
-			hederaTransactionHash: req.body.transactionPayload.hederaTransactionHash,
-			ethereumTransactionHash:
-				req.body.transactionPayload.ethereumTransactionHash,
-			transactionStatus: req.body.transactionPayload.transactionStatus,
+			transactionId: req.body.transactionId,
+			type: req.body.type,
+			blockNumber: req.body.blockNumber,
+			addressTo: req.body.addressTo,
+			txTimestamp: req.body.txTimestamp,
+			timestamp: req.body.timestamp,
+			currentTimestamp: req.body.currentTimestamp,
+			hederaTransactionHash: req.body.hederaTransactionHash,
+			ethereumTransactionHash: req.body.ethereumTransactionHash,
 			status: req.body.status,
-			error: req.body.error,
 		};
 
 		wss.clients.forEach((client) => {
