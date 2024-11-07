@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  shadowing-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shadowing-api-container
+    ports:
+      - "3005:3005"
+      - "8085:8085"
+#    networks:
+#      - hedera-mirror-node
+#      - hedera-network-node
+
+#networks:
+#  hedera-mirror-node:
+#    external: true
+#  hedera-network-node:
+#    external: true
