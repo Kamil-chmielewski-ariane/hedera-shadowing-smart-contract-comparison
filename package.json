@@ -1,8 +1,8 @@
 {
-  "name": "hedera-eth-shadowing",
+  "name": "hedera-shadowing-smart-contract-comparision",
   "version": "1.0.0",
   "description": "",
-  "main": "src/apps/shadowing/index.ts",
+  "main": "src/apps/smart-contract-comparision/index.ts",
   "scripts": {
     "test": "jest",
     "dev": "ts-node -r tsconfig-paths/register src/apps/smart-contract-comparision/index.ts",
