@@ -3,7 +3,7 @@ import {
 	websocketEvents,
 } from '@/api/websocket/websocket-connection';
 import { TransactionStatusResponse } from '@/utils/types';
-import { compareSmartContractRootState } from '@/apps/smart-contract-comparision/blockchain-utils/compare-smart-contract-root-state';
+import { compareSmartContractRootState } from '@/apps/smart-contract-comparison/blockchain-utils/compare-smart-contract-root-state';
 
 (async () => {
 	websocketConnection();

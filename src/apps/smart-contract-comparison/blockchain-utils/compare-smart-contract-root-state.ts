@@ -1,5 +1,5 @@
 import { getMirrorNodeTransaction } from '@/api/hedera-mirror-node/get-mirror-node-transaction';
-import { getHederaContractStatesByTimestamp } from '@/apps/smart-contract-comparision/blockchain-utils/get-hedera-contract-states-by-timestamp';
+import { getHederaContractStatesByTimestamp } from '@/apps/smart-contract-comparison/blockchain-utils/get-hedera-contract-states-by-timestamp';
 import { getStorageAt } from '@/api/erigon/get-storage-at';
 import { writeLogFile } from '@/utils/helpers/write-log-file';
 import { ContractType } from '@/utils/types';
