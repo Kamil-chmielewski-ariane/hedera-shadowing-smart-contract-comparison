@@ -4,6 +4,7 @@ import { getStorageAt } from '@/api/erigon/get-storage-at';
 import { writeLogFile } from '@/utils/helpers/write-log-file';
 import { ContractType } from '@/utils/types';
 
+// Compare an smart contract slot state from hedera and ethereum net and write it in the log file if they are not equal.
 export async function compareSmartContractRootState(contractRootData: ContractType) {
 	console.log(`Starting compare state contract ${contractRootData.blockNumber}`)
 
