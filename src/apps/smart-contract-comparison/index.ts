@@ -10,7 +10,7 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 (async () => {
 	await writeLogFile(
 		`logs/transaction-checker.csv`,
-		'BlockNumber,EthereumTransactioHash,HederaTransactionHash,Result \r\n'
+		'transactionId,type,blockNumber,addressTo,txTimestamp,timestamp,currentTimestamp,hederaTransactionHash,ethereumTransactionHash,status \r\n'
 	);
 
 	// Start listening for the shadowing api requests from evm_shadowing api
