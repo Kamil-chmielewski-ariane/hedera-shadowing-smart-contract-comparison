@@ -17,8 +17,29 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 	websocketConnection();
 	await new Promise((resolve) => setTimeout(resolve, 2000));
 
-	websocketEvents.on('websocket', async (contractData: TransactionStatusResponse) => {
-		await transactionStatusAccuracyChecker(contractData);
-		await compareSmartContractRootState(contractData);
-	});
+	const eventQueue: TransactionStatusResponse[] = [];
+	let isProcessing = false;
+
+	websocketEvents.on(
+		'websocket',
+		async (contractData: TransactionStatusResponse) => {
+			eventQueue.push(contractData);
+			await processQueue();
+		}
+	);
+
+	async function processQueue() {
+		if (isProcessing) return;
+
+		isProcessing = true;
+		while (eventQueue.length > 0) {
+			const contractData = eventQueue.shift();
+			if (contractData) {
+				await new Promise((resolve) => setTimeout(resolve, 2000));
+				await transactionStatusAccuracyChecker(contractData);
+				await compareSmartContractRootState(contractData);
+			}
+		}
+		isProcessing = false;
+	}
 })();
