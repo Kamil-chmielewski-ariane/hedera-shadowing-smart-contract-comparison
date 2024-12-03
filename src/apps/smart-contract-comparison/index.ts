@@ -35,7 +35,6 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 		while (eventQueue.length > 0) {
 			const contractData = eventQueue.shift();
 			if (contractData) {
-				await new Promise((resolve) => setTimeout(resolve, 2000));
 				await transactionStatusAccuracyChecker(contractData);
 				await compareSmartContractRootState(contractData);
 			}
