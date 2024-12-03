@@ -34,6 +34,7 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 			const contractData = eventQueue.shift();
 			if (contractData) {
 				await transactionStatusAccuracyChecker(contractData);
+				await compareSmartContractRootState(contractData);
 			}
 		}
 		isProcessing = false;
