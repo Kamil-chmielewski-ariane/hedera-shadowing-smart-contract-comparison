@@ -1,10 +1,14 @@
 import WebSocket from 'isomorphic-ws';
 import EventEmitter from 'events';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const SHADOWING_API_HOST = process.env.SHADOWING_API_HOST;
 
 export const websocketEvents = new EventEmitter();
 
 export function websocketConnection() {
-	const socket = new WebSocket('ws://localhost:8085/');
+	const socket = new WebSocket(`ws://${SHADOWING_API_HOST}:8085/`);
 
 	socket.onopen = () => {
 		console.log('WebSocket connection opened');
