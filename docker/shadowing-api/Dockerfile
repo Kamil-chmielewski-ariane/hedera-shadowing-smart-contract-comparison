@@ -7,7 +7,7 @@ COPY package*.json ./
 RUN npm install -g ts-node typescript
 RUN npm install
 
-COPY . .
+COPY ../.. .
 
 EXPOSE 3005
 EXPOSE 8085
