@@ -8,15 +8,26 @@ import { writeLogFile } from '@/utils/helpers/write-log-file';
 import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparison/hedera/transaction-status-accuracy-checker';
 
 (async () => {
+	let iterations = 0;
+	let currentLogFileNumber = 1;
 	await writeLogFile(
-		`logs/transaction-checker.csv`,
+		`logs/transaction-checker-${currentLogFileNumber}.csv`,
 		'transactionId,type,blockNumber,addressTo,txTimestamp,currentTimestamp,hederaTransactionHash,ethereumTransactionHash,status \r\n'
+	);
+
+	await writeLogFile(
+		`logs/all-contracts-details.csv`,
+		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue'
+	);
+
+	await writeLogFile(
+		`logs/state-root-compare-errors.csv`,
+		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue'
 	);
 
 	// Start listening for the shadowing api requests from evm_shadowing api
 	websocketConnection();
 	await new Promise((resolve) => setTimeout(resolve, 2000));
-
 	const eventQueue: TransactionStatusResponse[] = [];
 	let isProcessing = false;
 
@@ -35,7 +46,18 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 		while (eventQueue.length > 0) {
 			const contractData = eventQueue.shift();
 			if (contractData) {
-				await transactionStatusAccuracyChecker(contractData);
+				iterations++;
+				if (iterations % 500000 === 0 && iterations !== 0) {
+					currentLogFileNumber++;
+					await writeLogFile(
+						`logs/transaction-checker-${currentLogFileNumber}.csv`,
+						'transactionId,type,blockNumber,addressTo,txTimestamp,currentTimestamp,hederaTransactionHash,ethereumTransactionHash,status \r\n'
+					);
+				}
+				await transactionStatusAccuracyChecker(
+					contractData,
+					currentLogFileNumber
+				);
 				await compareSmartContractRootState(contractData);
 			}
 		}
