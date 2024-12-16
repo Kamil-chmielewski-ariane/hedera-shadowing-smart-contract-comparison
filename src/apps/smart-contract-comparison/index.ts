@@ -17,12 +17,12 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 
 	await writeLogFile(
 		`logs/all-contracts-details.csv`,
-		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue'
+		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue \r\n'
 	);
 
 	await writeLogFile(
 		`logs/state-root-compare-errors.csv`,
-		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue'
+		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue \r\n'
 	);
 
 	// Start listening for the shadowing api requests from evm_shadowing api

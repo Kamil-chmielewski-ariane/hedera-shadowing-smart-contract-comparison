@@ -46,7 +46,7 @@ export async function compareSmartContractRootState(contractRootData: ContractTy
 			const contractDetailsValues: ContractDetails[] = Object.values(contractDetails)
 
 			await writeLogFile(
-				`logs/all-contracts-details.json`,
+				`logs/all-contracts-details.csv`,
 				`${contractDetailsValues.map((elem) => elem)} \r\n`
 			);
 
@@ -58,7 +58,7 @@ export async function compareSmartContractRootState(contractRootData: ContractTy
 
 	if (errorInBlock.length > 0) {
 		await writeLogFile(
-			`logs/state-root-compare-errors.json`,
+			`logs/state-root-compare-errors.csv`,
 			`${errorInBlock.map((elem) => elem)} \r\n`
 		);
 	}
