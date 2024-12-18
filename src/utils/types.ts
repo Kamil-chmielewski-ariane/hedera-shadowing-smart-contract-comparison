@@ -52,3 +52,13 @@ interface HederaTransaction {
 export interface HederaTransactionsResponse {
 	transactions: HederaTransaction[];
 }
+
+export interface ContractDetails {
+	blockNumber: number,
+	ethereumTransactionHash: string,
+	timestamp: string,
+	contractAddress: string,
+	searchedSlot: string,
+	hederaValue: string,
+	ethereumValue: string,
+}

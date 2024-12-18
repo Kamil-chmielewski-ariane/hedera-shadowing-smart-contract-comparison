@@ -2,7 +2,7 @@ import { getMirrorNodeTransaction } from '@/api/hedera-mirror-node/get-mirror-no
 import { getHederaContractStatesByTimestamp } from '@/apps/smart-contract-comparison/blockchain-utils/get-hedera-contract-states-by-timestamp';
 import { getStorageAt } from '@/api/erigon/get-storage-at';
 import { writeLogFile } from '@/utils/helpers/write-log-file';
-import { ContractType } from '@/utils/types';
+import {ContractDetails, ContractType } from '@/utils/types';
 
 // Compare an smart contract slot state from hedera and ethereum net and write it in the log file if they are not equal.
 export async function compareSmartContractRootState(contractRootData: ContractType) {
@@ -43,33 +43,23 @@ export async function compareSmartContractRootState(contractRootData: ContractTy
 				ethereumValue: sepoliaStateValue,
 			};
 
+			const contractDetailsValues: ContractDetails[] = Object.values(contractDetails)
+
 			await writeLogFile(
-				`logs/all-contracts-details.json`,
-				JSON.stringify(contractDetails)
+				`logs/all-contracts-details.csv`,
+				`${contractDetailsValues.map((elem) => elem)} \r\n`
 			);
+
 			if (sepoliaStateValue != hederaState.value) {
 				errorInBlock.push(contractDetails);
 			}
 		}
 	}
 
-	const blockWithContracts = {
-		[contractRootData.blockNumber]: {
-			contracts: contractsInBlock,
-		},
-	};
-
-	if (blockWithContracts[contractRootData.blockNumber].contracts.length > 0) {
-		await writeLogFile(
-			`logs/blocks-with-contracts.json`,
-			JSON.stringify(blockWithContracts)
-		);
-	}
-
 	if (errorInBlock.length > 0) {
 		await writeLogFile(
-			`logs/state-root-compare-errors.json`,
-			JSON.stringify(errorInBlock)
+			`logs/state-root-compare-errors.csv`,
+			`${errorInBlock.map((elem) => elem)} \r\n`
 		);
 	}
 }

@@ -1,6 +1,6 @@
 module.exports = {
     apps : [{
-        name   : "hedera-shadowing-smart-contract-comparison",
+        name   : "hedera-shadowing-smart-contract-comparison-and-transaction-checker",
         script : "./src/apps/smart-contract-comparison/index.ts",
         error_file  : "./logs/shadowing-smart-contract-comparison-errors-full.log",
         out_file : "./logs/shadowing-smart-contract-comparison-out-full.log",

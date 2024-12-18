@@ -20,10 +20,15 @@ services:
       context: .
       dockerfile: docker/hedera-shadowing-smart-contract-comparison/Dockerfile
     container_name: hedera-shadowing-smart-contract-comparison-container
+    links:
+      - shadowing-api
     volumes:
       - ./logs:/usr/src/app/logs
     depends_on:
       - shadowing-api
+    networks:
+      - hedera-mirror-node
+      - hedera-network-node
 
 networks:
   hedera-mirror-node:
