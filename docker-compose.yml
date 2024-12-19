@@ -12,8 +12,7 @@ services:
       - "3005:3005"
       - "8085:8085"
     networks:
-      - hedera-mirror-node
-      - hedera-network-node
+      - shadowing
 
   hedera-shadowing-smart-contract-comparison:
     build:
@@ -29,9 +28,14 @@ services:
     networks:
       - hedera-mirror-node
       - hedera-network-node
+      - shadowing
+#      - erigon <==== Erigon network required
 
 networks:
   hedera-mirror-node:
     external: true
   hedera-network-node:
     external: true
+  shadowing:
+    driver: bridge
+    name: shadowing
