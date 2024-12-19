@@ -51,7 +51,7 @@ export async function compareSmartContractRootState(contractRootData: ContractTy
 			);
 
 			if (sepoliaStateValue != hederaState.value) {
-				errorInBlock.push(contractDetails);
+				errorInBlock.push(contractDetailsValues);
 			}
 		}
 	}
