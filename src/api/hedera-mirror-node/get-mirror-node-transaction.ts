@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getCurrentTimestamp } from '@/utils/helpers/get-current-unix-timestamp';
 
+const MIRROR_NODE_API_HOST = process.env.MIRROR_NODE_API_HOST;
 export async function getMirrorNodeTransaction(
 	hederaTransactionHash: string
 ): Promise<any> {
@@ -8,7 +9,7 @@ export async function getMirrorNodeTransaction(
 		return getCurrentTimestamp();
 	}
 
-	const url = `http://localhost:5551/api/v1/transactions/${hederaTransactionHash}`;
+	const url = `http://${MIRROR_NODE_API_HOST}:5551/api/v1/transactions/${hederaTransactionHash}`;
 
 	try {
 		const response = await axios.get(url);
