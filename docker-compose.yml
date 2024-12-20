@@ -29,7 +29,6 @@ services:
       - hedera-mirror-node
       - hedera-network-node
       - shadowing
-#      - erigon <==== Erigon network required
 
 networks:
   hedera-mirror-node:
