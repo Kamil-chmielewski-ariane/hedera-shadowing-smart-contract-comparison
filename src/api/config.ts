@@ -1,7 +1,8 @@
 import axios from 'axios';
+const ERIGON_API_HOST = process.env.ERIGON_API_HOST;
 
 export const axiosInstanceErigon = axios.create({
-	baseURL: 'http://localhost:9545/',
+	baseURL: `http://${ERIGON_API_HOST}:9545/`,
 	headers: {
 		'Content-Type': 'application/json',
 	},
