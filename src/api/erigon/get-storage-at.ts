@@ -14,7 +14,9 @@ export async function getStorageAt(
 			jsonrpc: '2.0',
 		});
 
+
 		if (response.data && response.data.result) {
+
 			return response.data.result;
 		}
 	} catch (error) {
