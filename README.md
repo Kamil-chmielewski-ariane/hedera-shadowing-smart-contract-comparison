@@ -2,8 +2,8 @@
 
 First step to run shadowing app, but second part to check transaction status and compare a smart contract values and slots
 
-## Recommend tools
-* [transaction-checker](https://github.com/misiekp/transaction-checker)
+# Recommend tools
+* [Transaction checker](https://github.com/Kamil-chmielewski-ariane/transaction-checker)
 
 ## Requirements
 * [Node.js](https://nodejs.org/en) >= 22.x
@@ -25,6 +25,8 @@ Create a ```.env``` file in the root of project and add all variables as in ```.
 If you use docker compose - change all the variables with names of the docker containers, like in ``.env.example`` file
 if not, change it to ``localhost``
 To connect with the erigon api use the virtual machine or local ip.
+
+## Before running this app, make sure Hedera lcal node is running
 
 ### Installation
 To run this project you have first download and install all require packages.
