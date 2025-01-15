@@ -51,7 +51,7 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 			const contractData = eventQueue.shift();
 			if (contractData) {
 				iteration++;
-				if (iteration % 2 === 0 && iteration !== 0) {
+				if (iteration % 500000 === 0 && iteration !== 0) {
 					currentLogFileNumber++;
 					await writeLogFile(
 						`logs/transaction-checker`,
