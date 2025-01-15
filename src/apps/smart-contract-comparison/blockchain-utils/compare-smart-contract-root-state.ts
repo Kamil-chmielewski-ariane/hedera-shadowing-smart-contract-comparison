@@ -1,20 +1,31 @@
 import { getMirrorNodeTransaction } from '@/api/hedera-mirror-node/get-mirror-node-transaction';
-import { getHederaContractStatesByTimestamp } from '@/apps/smart-contract-comparision/blockchain-utils/get-hedera-contract-states-by-timestamp';
+import { getHederaContractStatesByTimestamp } from '@/apps/smart-contract-comparison/blockchain-utils/get-hedera-contract-states-by-timestamp';
 import { getStorageAt } from '@/api/erigon/get-storage-at';
 import { writeLogFile } from '@/utils/helpers/write-log-file';
-import { ContractType } from '@/utils/types';
+import { ContractDetails, ContractType } from '@/utils/types';
 
-export async function compareSmartContractRootState(contractRootData: ContractType) {
-	console.log(`Starting compare state contract ${contractRootData.blockNumber}`)
+// Compare a smart contract slot state from hedera and ethereum net and write it in the log file if they are not equal.
+export async function compareSmartContractRootState(
+	contractRootData: ContractType
+) {
+	console.log(
+		`Starting compare state contract ${contractRootData.blockNumber}`
+	);
 
 	const errorInBlock = [];
 	const contractsInBlock = [];
-	const transactionResponse = await getMirrorNodeTransaction(contractRootData.hederaTransactionHash);
+	const transactionResponse = await getMirrorNodeTransaction(
+		contractRootData.hederaTransactionHash
+	);
 
 	const createTransactionTimestamp = transactionResponse.consensus_timestamp;
 	console.log(createTransactionTimestamp, 'lastTransactionTimestamp');
 
-	if (contractRootData && contractRootData.ethereumTransactionHash && contractRootData.addressTo) {
+	if (
+		contractRootData &&
+		contractRootData.ethereumTransactionHash &&
+		contractRootData.addressTo
+	) {
 		const possibleTransactionAddress = contractRootData.addressTo;
 		const hederaStates = await getHederaContractStatesByTimestamp(
 			possibleTransactionAddress,
@@ -42,33 +53,26 @@ export async function compareSmartContractRootState(contractRootData: ContractTy
 				ethereumValue: sepoliaStateValue,
 			};
 
+			const contractDetailsValues: ContractDetails[] =
+				Object.values(contractDetails);
+
 			await writeLogFile(
-				`logs/all-contracts-details.json`,
-				JSON.stringify(contractDetails)
+				`logs/all-contracts-details`,
+				`${contractDetailsValues.map((elem) => elem)} \r\n`,
+				'csv'
 			);
+
 			if (sepoliaStateValue != hederaState.value) {
-				errorInBlock.push(contractDetails);
+				errorInBlock.push(contractDetailsValues);
 			}
 		}
 	}
 
-	const blockWithContracts = {
-		[contractRootData.blockNumber]: {
-			contracts: contractsInBlock,
-		},
-	};
-
-	if (blockWithContracts[contractRootData.blockNumber].contracts.length > 0) {
-		await writeLogFile(
-			`logs/blocks-with-contracts.json`,
-			JSON.stringify(blockWithContracts)
-		);
-	}
-
 	if (errorInBlock.length > 0) {
 		await writeLogFile(
-			`logs/state-root-compare-errors.json`,
-			JSON.stringify(errorInBlock)
+			`logs/state-root-compare-errors`,
+			`${errorInBlock.map((elem) => elem)} \r\n`,
+			'csv',
 		);
 	}
 }

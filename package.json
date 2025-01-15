@@ -1,17 +1,18 @@
 {
-  "name": "hedera-eth-shadowing",
+  "name": "hedera-shadowing-smart-contract-comparision",
   "version": "1.0.0",
   "description": "",
-  "main": "src/apps/shadowing/index.ts",
+  "main": "src/apps/smart-contract-comparison/index.ts",
   "scripts": {
     "test": "jest",
-    "dev": "ts-node -r tsconfig-paths/register src/apps/smart-contract-comparision/index.ts",
+    "dev": "ts-node -r tsconfig-paths/register src/apps/smart-contract-comparison/index.ts",
     "api": "ts-node src/apps/shadowing-api/index.ts"
   },
   "private": true,
   "dependencies": {
     "@ethersproject/bignumber": "^5.7.0",
     "@hashgraph/sdk": "^2.50.0",
+    "@types/axios": "^0.14.4",
     "@types/express-ws": "^3.0.5",
     "@types/jest": "^29.5.13",
     "@types/ws": "^8.5.13",
