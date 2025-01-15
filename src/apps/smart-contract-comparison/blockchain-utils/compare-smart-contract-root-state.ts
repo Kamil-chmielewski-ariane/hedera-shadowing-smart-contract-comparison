@@ -70,9 +70,9 @@ export async function compareSmartContractRootState(
 
 	if (errorInBlock.length > 0) {
 		await writeLogFile(
-			`logs/state-root-compare-errors.csv`,
+			`logs/state-root-compare-errors`,
 			`${errorInBlock.map((elem) => elem)} \r\n`,
-			'csv'
+			'csv',
 		);
 	}
 }
