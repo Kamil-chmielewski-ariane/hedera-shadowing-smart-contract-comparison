@@ -7,6 +7,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": false,
     "strict": true,
+    "typeRoots": ["./node_modules/@types"],
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
