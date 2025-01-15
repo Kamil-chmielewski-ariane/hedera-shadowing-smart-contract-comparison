@@ -12,8 +12,10 @@ export async function transactionStatusAccuracyChecker(
 		const transactionArray: TransactionStatusResponse[] =
 			Object.values(transactionData);
 		await writeLogFile(
-			`logs/transaction-checker-${currentLogFileNumber}.csv`,
-			`${transactionArray.map((elem) => elem)} \r\n`
+			`logs/transaction-checker`,
+			`${transactionArray.map((elem) => elem)} \r\n`,
+			'csv',
+			currentLogFileNumber
 		);
 		console.log(`Finished checking transaction - result: ${status}`);
 	}

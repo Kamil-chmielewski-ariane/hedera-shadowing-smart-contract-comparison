@@ -8,21 +8,25 @@ import { writeLogFile } from '@/utils/helpers/write-log-file';
 import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparison/hedera/transaction-status-accuracy-checker';
 
 (async () => {
-	let iterations = 0;
+	let iteration = 0;
 	let currentLogFileNumber = 1;
 	await writeLogFile(
-		`logs/transaction-checker-${currentLogFileNumber}.csv`,
-		'transactionId,type,blockNumber,addressTo,txTimestamp,currentTimestamp,hederaTransactionHash,ethereumTransactionHash,status \r\n'
+		`logs/transaction-checker`,
+		'transactionId,type,blockNumber,addressTo,txTimestamp,currentTimestamp,hederaTransactionHash,ethereumTransactionHash,status \r\n',
+		'csv',
+		currentLogFileNumber
 	);
 
 	await writeLogFile(
-		`logs/all-contracts-details.csv`,
-		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue \r\n'
+		`logs/all-contracts-details`,
+		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue \r\n',
+		'csv'
 	);
 
 	await writeLogFile(
-		`logs/state-root-compare-errors.csv`,
-		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue \r\n'
+		`logs/state-root-compare-errors`,
+		'blockNumber,ethereumTransactionHash,timestamp,contractAddress,searchedSlot,hederaValue,ethereumValue \r\n',
+		'csv'
 	);
 
 	// Start listening for the shadowing api requests from evm_shadowing api
@@ -46,12 +50,14 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 		while (eventQueue.length > 0) {
 			const contractData = eventQueue.shift();
 			if (contractData) {
-				iterations++;
-				if (iterations % 500000 === 0 && iterations !== 0) {
+				iteration++;
+				if (iteration % 2 === 0 && iteration !== 0) {
 					currentLogFileNumber++;
 					await writeLogFile(
-						`logs/transaction-checker-${currentLogFileNumber}.csv`,
-						'transactionId,type,blockNumber,addressTo,txTimestamp,currentTimestamp,hederaTransactionHash,ethereumTransactionHash,status \r\n'
+						`logs/transaction-checker`,
+						'transactionId,type,blockNumber,addressTo,txTimestamp,currentTimestamp,hederaTransactionHash,ethereumTransactionHash,status \r\n',
+						'csv',
+						currentLogFileNumber
 					);
 				}
 				await transactionStatusAccuracyChecker(

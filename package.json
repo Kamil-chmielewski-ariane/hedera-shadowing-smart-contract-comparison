@@ -12,6 +12,7 @@
   "dependencies": {
     "@ethersproject/bignumber": "^5.7.0",
     "@hashgraph/sdk": "^2.50.0",
+    "@types/axios": "^0.14.4",
     "@types/express-ws": "^3.0.5",
     "@types/jest": "^29.5.13",
     "@types/ws": "^8.5.13",
