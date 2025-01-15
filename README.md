@@ -2,15 +2,11 @@
 
 First step to run shadowing app, but second part to check transaction status and compare a smart contract values and slots
 
-# Recommend tools
-* [Transaction checker](https://github.com/Kamil-chmielewski-ariane/transaction-checker)
-
 ## Requirements
 * [Node.js](https://nodejs.org/en) >= 22.x
 * [PNPM](https://pnpm.io/) >= 9.x
 * [Docker](https://www.docker.com/) > 24.x
 * [Docker Compose](https://docs.docker.com/compose/) > 2.22.0
-* [PM2](https://pm2.keymetrics.io/) - Optional
 * Minimum 16GB RAM
 
 ## Usage
@@ -18,15 +14,12 @@ First step to run shadowing app, but second part to check transaction status and
 Add ```logs``` directory in the root of the project for log files
 Create a ```.env``` file in the root of project and add all variables as in ```.env.example```. 
 
-``SHADOWING_API_HOST``: Address for the shadowing api 
-``MIRROR_NODE_API_HOST``: Address for the mirror node api
-``ERIGON_API_HOST``: Address for the erigon api
+``SHADOWING_API_HOST`` - address for the shadowing api 
+``MIRROR_NODE_API_HOST`` - address for the mirror node api
+``ERIGON_API_HOST``: - address for the erigon api
 
 If you use docker compose - change all the variables with names of the docker containers, like in ``.env.example`` file
-if not, change it to ``localhost``
-To connect with the erigon api use the virtual machine or local ip.
-
-## Before running this app, make sure Hedera lcal node is running
+if not, change it to ``localhost`` To connect with the erigon api use the virtual machine or local ip.
 
 ### Installation
 To run this project you have first download and install all require packages.
@@ -41,12 +34,14 @@ The shadowing api will be default set on the ports:
 ### Smart contract comparison and transaction details
 Checks all transaction details and comparing smart contract slots values. The app listen a websocket on 8005 port
 
-#### Docker - run both apps
+## Before running this app, make sure Hedera local node is running
+
+## Docker - for both apps
 ``docker compose up -d``
 
 ## Creating logs
 The Hedera shadowing smart contract comparison is creating logs for the smart contract details and created hedera transaction details
-- Hedera transaction details -> It adds a index for each file every +500000 transactions
+- Hedera transaction details (It adds a index for each .csv file every 500000 transactions)
 - Smart contract compare errors
 - All contract details
 
