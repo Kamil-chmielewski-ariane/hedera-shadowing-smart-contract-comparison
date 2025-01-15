@@ -1,9 +1,9 @@
-# Hedera Shadowing smart contract comparison
+# Hedera Shadowing smart contract comparison and shadowing api
 
-Second part of the shadowing app to compare only a smart contract values and slots using evm_shadowing api
+First step to run shadowing app, but second part to check transaction status and compare a smart contract values and slots
 
 ## Recommend tools
-* [evm-shadowing](https://github.com/misiekp/evm_shadowing)
+* [transaction-checker](https://github.com/misiekp/transaction-checker)
 
 ## Requirements
 * [Node.js](https://nodejs.org/en) >= 22.x
@@ -15,38 +15,38 @@ Second part of the shadowing app to compare only a smart contract values and slo
 
 ## Usage
 
-Add ```logs``` directory in the root of the project for logs
+Add ```logs``` directory in the root of the project for log files
+Create a ```.env``` file in the root of project and add all variables as in ```.env.example```. 
+
+``SHADOWING_API_HOST``: Address for the shadowing api 
+``MIRROR_NODE_API_HOST``: Address for the mirror node api
+``ERIGON_API_HOST``: Address for the erigon api
+
+If you use docker compose - change all the variables with names of the docker containers, like in ``.env.example`` file
+if not, change it to ``localhost``
+To connect with the erigon api use the virtual machine or local ip.
 
 ### Installation
-
-To run this project you have first download and install all require packages, also you have to create a erigon api and evm_shadowing app is required for this app to work.
+To run this project you have first download and install all require packages.
 
 ## Shadowing API
+An api which create a websocket connection to listen incoming requests from the transaction checker app
 
 The shadowing api will be default set on the ports:
 - 3005 - Shadowing api
 - 8005 - Shadowing api connection listener
 
-#### PNPM
+### Smart contract comparison and transaction details
+Checks all transaction details and comparing smart contract slots values. The app listen a websocket on 8005 port
 
-```
-pnpm install
-pnpm api
-```
-to run the shadowing api 
-
-#### Docker
-
-``docker compose up`` to run shadowing api
-
-### Smart contract comparision
-
-```pnpm run dev``` to start app
+#### Docker - run both apps
+``docker compose up -d``
 
 ## Creating logs
-
-The Hedera shadowing smart contract comparison is creating logs for the smart contract details
+The Hedera shadowing smart contract comparison is creating logs for the smart contract details and created hedera transaction details
+- Hedera transaction details -> It adds a index for each file every +500000 transactions
 - Smart contract compare errors
-- Blocks with contracts
-- All contract with details
+- All contract details
+
+The log file is in the ``/logs`` directory. When shadowing and transaction checkers apps are running the data will be added into existing log files.
 
