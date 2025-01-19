@@ -43,6 +43,7 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 		}
 	);
 
+	// main function for processing next transactions and check if there are smart contract calls and if true compare slots on smart contract address between Hedera and Ethereum
 	async function processQueue() {
 		if (isProcessing) return;
 
@@ -60,10 +61,12 @@ import { transactionStatusAccuracyChecker } from '@/apps/smart-contract-comparis
 						currentLogFileNumber
 					);
 				}
+				// log transaction data
 				await transactionStatusAccuracyChecker(
 					contractData,
 					currentLogFileNumber
 				);
+				// function for detecting and comparing smart contract slots between Hedera and Sepolia
 				await compareSmartContractRootState(contractData);
 			}
 		}
