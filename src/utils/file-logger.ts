@@ -75,13 +75,18 @@ abstract class RotatedFileLogger<T, L extends string = string> {
  * @argument filename - The name of the log files.
  */
 export class CsvLogger extends RotatedFileLogger<any[], 'info' | 'error'> {
-	constructor(dirname: string, filename: string) {
+	constructor(
+		dirname: string,
+		filename: string,
+		maxSize?: DailyRotateFileTransportOptions['maxSize']
+	) {
 		super(
 			dirname,
 			filename,
 			'csv',
-			winston.format.printf(({ _timestamp, _level, message }) => `${message}`),
-			['info', 'error']
+			winston.format.printf(({ message }) => `${message}`),
+			['info', 'error'],
+			maxSize
 		);
 	}
 
