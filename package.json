@@ -27,6 +27,8 @@
     "rfc4648": "^1.5.3",
     "tsconfig-paths": "^4.2.0",
     "viem": "^2.21.2",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0",
     "ws": "^8.18.0"
   },
   "devDependencies": {
